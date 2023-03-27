@@ -10,16 +10,23 @@ export const GlobalStyle = createGlobalStyle`
 
   :focus {
     outline: 0;
-    box-shadow: 0 0 0 2px ${(props) => props.theme['label']};
+    box-shadow: 0 0 0 2px ${(props) => props.theme.blue}; 
+  }
+
+  a {
+    color: ${(props) => props.theme.blue};
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   body {
-    background-color: ${(props) => props.theme['background']};
-    color: ${(props) => props.theme['text']};
+    background-color: ${(props) => props.theme.background};
+    color: ${(props) => props.theme.text};
     -webkit-font-smoothing: antialiased;
   }
 
   body, input-security, textarea, button {
-    font: 400 1rem Roboto, sans-serif;
+    font: 400 1rem 'Nunito', sans-serif;
   }
 `

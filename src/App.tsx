@@ -1,14 +1,15 @@
-import { defaultTheme } from './styles/themes/default'
-import { ThemeProvider } from 'styled-components'
-import { GlobalStyle } from './styles/global'
+import { Route, Routes } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { Home } from './pages/Home'
 
-function App() {
+export function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <GlobalStyle />
-      <h1>home</h1>
-    </ThemeProvider>
+    <>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+      </Routes>
+    </>
   )
 }
-
-export default App

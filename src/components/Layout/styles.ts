@@ -13,3 +13,9 @@ export const HeaderWrapper = styled.div`
     display: inline-block;
   }
 `
+
+export const MainWrapper = styled.main`
+  width: 100%;
+  max-width: 864px;
+  margin: -106px auto 0 auto;
+`

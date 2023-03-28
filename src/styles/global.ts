@@ -24,6 +24,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.background};
     color: ${(props) => props.theme.text};
     -webkit-font-smoothing: antialiased;
+    line-height: 160%;
   }
 
   body, input-security, textarea, button {

@@ -3,9 +3,6 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const HeaderContent = styled.div`
-  width: 100%;
-  max-width: 864px;
-  margin: 0 auto;
   padding: 2rem 2.5rem;
   display: flex;
   justify-content: space-between;
@@ -13,7 +10,7 @@ export const HeaderContent = styled.div`
   background-color: ${(props) => props.theme.profile};
   border-radius: 0.625rem;
   gap: 2rem;
-  transform: translateY(-50%);
+  /* transform: translateY(-50%); */
 `
 
 export const HeaderContentHeading = styled.div`

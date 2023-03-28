@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom'
 import GithubBlogLogo from '../../assets/github-blog-logo.svg'
-import { HeaderWrapper } from './styles'
+import { HeaderWrapper, MainWrapper } from './styles'
 
 export function Layout() {
   return (
@@ -10,9 +10,9 @@ export function Layout() {
           <GithubBlogLogo />
         </Link>
       </HeaderWrapper>
-      <main>
+      <MainWrapper>
         <Outlet />
-      </main>
+      </MainWrapper>
     </>
   )
 }

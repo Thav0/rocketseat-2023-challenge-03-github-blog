@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {
   GithubLink,
   GithubProfileDescription,
@@ -18,41 +19,79 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { SearchBox } from './components/SearchBox'
 import { Posts } from './components/Posts'
+import { useCallback, useEffect, useState } from 'react'
+import { api } from '../../lib/axios'
+
+interface GithubUserProfileData {
+  login: string
+  avatar_url: string
+  url: string
+  html_url: string
+  name: string
+  location: string
+  bio: string
+  followers: number
+}
 
 export function Home() {
+  const [githubProfile, setGithubProfile] = useState(
+    {} as GithubUserProfileData,
+  )
+
+  const fetchGithubUserProfileData = useCallback(async () => {
+    const response = await api.get('users/Thav0')
+    const { login, avatar_url, html_url, url, name, location, bio, followers } =
+      response.data
+
+    const githubProfileData = {
+      login,
+      avatar_url,
+      html_url,
+      url,
+      name,
+      location,
+      bio,
+      followers,
+    }
+
+    setGithubProfile(githubProfileData)
+  }, [])
+
+  useEffect(() => {
+    fetchGithubUserProfileData()
+  }, [fetchGithubUserProfileData])
+
   return (
     <>
       <HeaderContent>
         <GithubProfileImage
-          src="https://avatars.githubusercontent.com/u/7991015?v=4"
-          alt="Github profile image"
+          src={githubProfile.avatar_url}
+          alt={githubProfile.login}
         />
         <div>
           <HeaderContentHeading>
-            <h2>Gustavo Junior Diniz</h2>
-            <GithubLink to="/">
+            <h2>{githubProfile.name}</h2>
+            <GithubLink to={githubProfile.html_url} target="_blank">
               GITHUB
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
             </GithubLink>
           </HeaderContentHeading>
           <GithubProfileDescription>
-            Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-            viverra massa quam dignissim aenean malesuada suscipit. Nunc,
-            volutpat pulvinar vel mass.
+            {githubProfile.bio}
           </GithubProfileDescription>
 
           <GithubProfileLinks>
             <GithubProfileLink>
               <GithubIcon width="16px" height="16px" />
-              <div>Thav0</div>
+              <div>{githubProfile.login}</div>
             </GithubProfileLink>
             <GithubProfileLink>
               <FontAwesomeIcon icon={faBuilding} />
-              <div>Thav0</div>
+              <div>{githubProfile.login}</div>
             </GithubProfileLink>
             <GithubProfileLink>
               <FontAwesomeIcon icon={faUserGroup} />
-              <div>Thav0</div>
+              <div>{githubProfile.login}</div>
             </GithubProfileLink>
           </GithubProfileLinks>
         </div>

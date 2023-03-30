@@ -9,6 +9,7 @@ import {
 import { api } from '../lib/axios'
 
 export interface IGithubRepositoryIssue {
+  id: string
   title: string
   body: string
   created_at: Date
@@ -42,8 +43,9 @@ export function GithubProvider({ children }: GithubProviderProps) {
     })
 
     const githubIssuesData = response.data.items.map(
-      ({ title, body, created_at }: IGithubRepositoryIssue) => {
+      ({ number, title, body, created_at }) => {
         return {
+          id: number,
           title,
           body,
           created_at: new Date(created_at),

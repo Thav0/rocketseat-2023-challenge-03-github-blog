@@ -19,6 +19,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.7",
+    "react-markdown": "^8.0.6",
     "react-router-dom": "^6.9.0",
     "styled-components": "^5.3.9",
     "vite-plugin-svgr": "^2.4.0",

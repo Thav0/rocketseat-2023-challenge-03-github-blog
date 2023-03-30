@@ -12,6 +12,7 @@ export interface IGithubRepositoryIssue {
   id: string
   title: string
   body: string
+  html_url: string
   created_at: Date
 }
 
@@ -43,10 +44,11 @@ export function GithubProvider({ children }: GithubProviderProps) {
     })
 
     const githubIssuesData = response.data.items.map(
-      ({ number, title, body, created_at }) => {
+      ({ number, title, body, html_url, created_at }) => {
         return {
           id: number,
           title,
+          html_url,
           body,
           created_at: new Date(created_at),
         }

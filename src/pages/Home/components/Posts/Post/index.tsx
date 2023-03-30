@@ -1,18 +1,18 @@
+/* eslint-disable camelcase */
+import { IGithubRepositoryIssue } from '../../../../../contexts/GithubContext'
+import { formatDateDifference } from '../../../../../util/dateFormatter'
 import { PostWrapper, PostHeading, PostContent } from './styles'
 
-export function Post() {
+export function Post({ githubIssue }: { githubIssue: IGithubRepositoryIssue }) {
+  const { body, created_at, title } = githubIssue
+
   return (
     <PostWrapper>
       <PostHeading>
-        <h2>JavaScript data types and data structures</h2>
-        <span>Há 1 dia</span>
+        <h2>{title}</h2>
+        <span>{formatDateDifference(created_at)}</span>
       </PostHeading>
-      <PostContent>
-        Programming languages all have built-in data structures, but these often
-        differ from one language to another. This article attempts to list the
-        built-in data structures available in JavaScript and what properties
-        they have.
-      </PostContent>
+      <PostContent>{body}</PostContent>
     </PostWrapper>
   )
 }

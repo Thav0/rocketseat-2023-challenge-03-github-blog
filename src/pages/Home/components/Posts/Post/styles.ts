@@ -15,6 +15,8 @@ export const PostHeading = styled.div`
   }
   span {
     line-height: 2rem;
+    height: 5rem;
+    overflow: hidden;
     font-size: 0.875rem;
     color: ${(props) => props.theme.span};
     flex-shrink: 0;

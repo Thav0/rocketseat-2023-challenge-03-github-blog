@@ -15,8 +15,10 @@ export interface IGithubRepositoryIssue {
 }
 
 interface IGithubContext {
-  githubIssues: IGithubRepositoryIssue[] | []
+  githubIssue: IGithubRepositoryIssue
+  githubIssues: IGithubRepositoryIssue[]
   fetchGithubIssues: (query?: string) => Promise<void>
+  fetchGithubIssueByID: (issueID: number) => Promise<void>
 }
 
 export const GithubContext = createContext({} as IGithubContext)
@@ -30,6 +32,7 @@ const GITHUB_REPOSITORY = 'rocketseat-2023-challenge-03-github-blog'
 
 export function GithubProvider({ children }: GithubProviderProps) {
   const [githubIssues, setGithubIssues] = useState<IGithubRepositoryIssue[]>([])
+  const [githubIssue, setGithubIssue] = useState({} as IGithubRepositoryIssue)
 
   const fetchGithubIssues = useCallback(async (query = '') => {
     const response = await api.get('/search/issues', {
@@ -37,8 +40,6 @@ export function GithubProvider({ children }: GithubProviderProps) {
         q: `${query}repo:${GITHUB_USERNAME}/${GITHUB_REPOSITORY}`,
       },
     })
-
-    console.log(response, 'teste')
 
     const githubIssuesData = response.data.items.map(
       ({ title, body, created_at }: IGithubRepositoryIssue) => {
@@ -53,12 +54,31 @@ export function GithubProvider({ children }: GithubProviderProps) {
     setGithubIssues(githubIssuesData)
   }, [])
 
+  const fetchGithubIssueByID = useCallback(async (issueId: number) => {
+    const response = await api.get(
+      `repos/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}/issues/${issueId}`,
+      {
+        params: {
+          q: `repo:/`,
+        },
+      },
+    )
+    setGithubIssue(response.data)
+  }, [])
+
   useEffect(() => {
     fetchGithubIssues()
   }, [fetchGithubIssues])
 
   return (
-    <GithubContext.Provider value={{ githubIssues, fetchGithubIssues }}>
+    <GithubContext.Provider
+      value={{
+        githubIssues,
+        githubIssue,
+        fetchGithubIssues,
+        fetchGithubIssueByID,
+      }}
+    >
       {children}
     </GithubContext.Provider>
   )
